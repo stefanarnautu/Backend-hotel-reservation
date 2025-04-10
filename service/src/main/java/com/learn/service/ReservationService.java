@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.learn.domain.Reservation;
 import com.learn.domain.Room;
 import com.learn.domain.User;
+import com.learn.dto.requestDTO.ReservationRequestDTO;
+import com.learn.dto.responseDTO.ReservationSavedDTO;
 import com.learn.enums.PaymentType;
 import com.learn.repositories.ReservationRepo;
 import com.learn.repositories.RoomRepo;
@@ -32,19 +34,20 @@ public class ReservationService {
         return reservationRepo.findAll();
     }
 
-    public Reservation createReservation(long roomId, long userId, PaymentType paymentType, int price){
-        Room room = roomRepo.findById(roomId).orElseThrow(() -> new RuntimeException("Room not found"));
-        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+    public ReservationSavedDTO createReservation(ReservationRequestDTO reservationDto){
+        Room room = roomRepo.findById(reservationDto.getRoomId()).orElseThrow(() -> new RuntimeException("Room not found"));
+        User user = userRepo.findById(reservationDto.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
         if(room.getReservation() != null){
-            throw new RoomAlreadyBooked("Room " + roomId + " is booked.");
+            throw new RoomAlreadyBooked("Room " + reservationDto.getRoomId() + " is booked.");
         }
         Reservation reservation = new Reservation();
-        reservation.setPaymentType(paymentType);
-        reservation.setPrice(price);
+        reservation.setPaymentType(reservationDto.getPaymentType());
+        reservation.setPrice(reservationDto.getPrice());
         reservation.setRoom(room);
         reservation.setUser(user);
 
         room.setReservation(reservation);
-        return reservationRepo.save(reservation);
+        reservationRepo.save(reservation);
+        return new ReservationSavedDTO(reservation.getId(), reservation.getUser().getUsername(), reservation.getRoom().getHotel().getName(), reservation.getPrice());
     }
 }

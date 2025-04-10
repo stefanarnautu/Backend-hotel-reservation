@@ -19,16 +19,13 @@ import com.learn.service.UserService;
 public class ReservationController {
     private final ReservationService reservationService;
 
-    public ReservationController(ReservationService reservationService, RoomService roomService, UserService userService){
+    public ReservationController(ReservationService reservationService){
         this.reservationService = reservationService;
     }
 
     @PostMapping
     public ResponseEntity<ReservationSavedDTO> addReservation(@RequestBody ReservationRequestDTO reservationRequest){
-        Reservation savedReservation = reservationService.createReservation(reservationRequest.getRoomId(),
-                                                                            reservationRequest.getUserId(),
-                                                                            reservationRequest.getPaymentType(),
-                                                                            reservationRequest.getPrice());
-        return new ResponseEntity<>(new ReservationSavedDTO(savedReservation.getId(), savedReservation.getUser().getUsername(), savedReservation.getRoom().getHotel().getName(), savedReservation.getPrice()), HttpStatus.CREATED);
+        ReservationSavedDTO reservationResponse = reservationService.createReservation(reservationRequest);
+        return new ResponseEntity<>(reservationResponse,HttpStatus.CREATED);
     }
 }
