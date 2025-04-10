@@ -6,6 +6,7 @@ import com.learn.repositories.HotelRepo;
 
 @Service
 public class HotelService {
+    @SuppressWarnings("unused")
     private final HotelRepo hotelRepo;
 
     public HotelService(HotelRepo hotelRepo){

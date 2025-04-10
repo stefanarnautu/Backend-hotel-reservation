@@ -1,13 +1,13 @@
 package com.learn.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.learn.service.ReservationService;
-import com.learn.service.collections.CollectionsService;
-import com.learn.service.integers.IntegerService;
-import com.learn.service.strings.StringService;
+//import com.learn.service.ReservationService;
+//import com.learn.service.collections.CollectionsService;
+//import com.learn.service.integers.IntegerService;
+//import com.learn.service.strings.StringService;
 
 @Component
 public class ApplicationRunner implements CommandLineRunner {
