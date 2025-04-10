@@ -16,6 +16,6 @@ public class GlobalExceptionAdvicer {
     
     @ExceptionHandler(RoomAlreadyBooked.class)
      public ResponseEntity<String> handleRoomBookedException(RoomAlreadyBooked ex) {
-        return new ResponseEntity<>("Room is booked: " + ex.getMessage(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>("Room is already booked: " + ex.getMessage(), HttpStatus.CONFLICT);
     }
 }
