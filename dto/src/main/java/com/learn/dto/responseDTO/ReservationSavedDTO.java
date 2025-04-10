@@ -1,4 +1,4 @@
-package com.learn.web.requestDTO;
+package com.learn.dto.responseDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
