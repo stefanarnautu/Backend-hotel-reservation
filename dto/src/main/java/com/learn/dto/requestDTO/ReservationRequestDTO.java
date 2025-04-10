@@ -1,4 +1,4 @@
-package com.learn.web.requestDTO;
+package com.learn.dto.requestDTO;
 
 import com.learn.enums.PaymentType;
 

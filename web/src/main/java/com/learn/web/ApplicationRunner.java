@@ -12,7 +12,7 @@ import com.learn.service.strings.StringService;
 @Component
 public class ApplicationRunner implements CommandLineRunner {
 
-    private final IntegerService integerService;
+    /*private final IntegerService integerService;
     private final StringService stringService;
     private final ReservationService reservationService;
     private final CollectionsService collectionsService;
@@ -26,7 +26,7 @@ public class ApplicationRunner implements CommandLineRunner {
         this.stringService = stringService;
         this.reservationService = reservationService;
         this.collectionsService = collectionsService;
-    }
+    }*/
 
     @Override
     public void run(String... args) throws Exception {
@@ -68,8 +68,8 @@ public class ApplicationRunner implements CommandLineRunner {
         System.out.println(stringService.getLongestPrefix(new String[]{"flowles", "flo", "flowght"}));*/
     
 
-        System.out.println("Collections:");
-        collectionsService.addElementsToList(3,6,2,5,76,3);
+        /*System.out.println("Collections:");
+        collectionsService.addElementsToList(3,6,2,5,76,3);*/
     }
 
 }

@@ -48,6 +48,11 @@
 			<artifactId>persistance</artifactId>
 			<version>${persistance.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.learn</groupId>
+			<artifactId>dto</artifactId>
+			<version>${dto.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>

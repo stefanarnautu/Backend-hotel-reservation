@@ -26,7 +26,7 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()
                 .and().formLogin().permitAll()
                 .and().exceptionHandling()
-                .defaultAuthenticationEntryPointFor(new CustomAuthenticationEntryPoint(), new AntPathRequestMatcher("/api/**"));
+                .defaultAuthenticationEntryPointFor(new CustomAuthenticationEntryPoint(), new AntPathRequestMatcher("/auth/**"));
         return http.build();
     }
 

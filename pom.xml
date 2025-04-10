@@ -11,6 +11,7 @@
     <properties>
         <service.version>1.0-SNAPSHOT</service.version>
         <persistance.version>1.0-SNAPSHOT</persistance.version>
+        <dto.version>1.0-SNAPSHOT</dto.version>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -20,6 +21,7 @@
         <module>service</module>
         <module>persistance</module>
         <module>web</module>
+        <module>dto</module>
     </modules>
 
      <parent>
