@@ -30,18 +30,27 @@ jobs:
           nohup ./mvnw spring-boot:run -pl web > spring.log 2>&1 &
 
       - name: Wait for the app to start
-        run: sleep 20
+        run: sleep 40  # Adjust wait time based on your Spring Boot app's startup time
 
       - name: Print Spring Boot logs
         run: cat spring.log || echo "Log file not found"
 
+      - name: Check if Spring Boot app is running
+        run: |
+          curl --fail http://localhost:8080/actuator/health || exit 1  # Check the health endpoint to confirm app is running
+
       - name: Download OpenAPI spec
         run: |
-          curl -v http://localhost:8080/v3/api-docs
-          curl -o api-docs.yml http://localhost:8080/v3/api-docs
+          curl -v http://localhost:8080/v3/api-docs  # Verify if the API docs endpoint is accessible
+          curl -o api-docs.yml http://localhost:8080/v3/api-docs  # Download the OpenAPI spec
 
       - name: Upload OpenAPI Spec
+        if: success()  # Only upload the spec if the previous steps were successful
         uses: actions/upload-artifact@v4
         with:
           name: openapi-spec
           path: api-docs.yml
+
+      - name: Upload OpenAPI Spec to bump.sh
+        run: |
+          curl -X POST -H "Authorization: Bearer BWk96UK1iFSJgmYGpk5p9YdHgfX8eCRE" -F "file=@api-docs.yml" https://api.bump.sh/v1/docs/upload
