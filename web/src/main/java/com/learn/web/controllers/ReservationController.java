@@ -26,7 +26,7 @@ public class ReservationController {
     }
 
     @PostMapping
-    @Operation(summary = "Create a new reservation", description = "Create a new reservation by providing the reservation details.")
+    @Operation(summary = "Create a nsew reservation", description = "Create a new reservation by providing the reservation details.")
     public ResponseEntity<ReservationSavedDTO> addReservation(@RequestBody ReservationRequestDTO reservationRequest){
         ReservationSavedDTO reservationResponse = reservationService.createReservation(reservationRequest);
         return new ResponseEntity<>(reservationResponse,HttpStatus.CREATED);
