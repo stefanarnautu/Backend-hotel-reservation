@@ -32,7 +32,7 @@ jobs:
           curl -o docs/openapi/openapi-spec.json http://localhost:8080/v3/api-docs
 
       - name: Upload to Bump.sh
-        uses: bump-sh/bump-action@v1  # Make sure you replace with actual Bump.sh action
+        uses: bump-sh/github-action@v1  # Make sure you replace with actual Bump.sh action
         with:
           api_token: BWk96UK1iFSJgmYGpk5p9YdHgfX8eCRE
           spec_file: docs/openapi/openapi-spec.json
