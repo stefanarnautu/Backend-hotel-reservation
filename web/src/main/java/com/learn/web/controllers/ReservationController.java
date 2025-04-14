@@ -2,6 +2,7 @@ package com.learn.web.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,5 +31,11 @@ public class ReservationController {
     public ResponseEntity<ReservationSavedDTO> addReservation(@RequestBody ReservationRequestDTO reservationRequest){
         ReservationSavedDTO reservationResponse = reservationService.createReservation(reservationRequest);
         return new ResponseEntity<>(reservationResponse,HttpStatus.CREATED);
+    }
+
+    @DeleteMapping
+    @Operation(summary = "Delete reservation", description = "Delete reservation")
+    public ResponseEntity<ReservationSavedDTO> deleteReservation(){
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
