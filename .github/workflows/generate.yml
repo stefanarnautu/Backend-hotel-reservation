@@ -25,9 +25,10 @@ jobs:
       - name: Build the project
         run: ./mvnw clean install
 
-      - name: Run Spring Boot Application in Background
+      - name: Run Spring Boot App in Background
+        working-directory: ./web
         run: |
-          nohup ./mvnw spring-boot:run > spring.log 2>&1 &
+          nohup ./mvnw spring-boot:run > ../../spring.log 2>&1 &
 
       - name: Wait for Spring Boot to Start
         run: sleep 40
