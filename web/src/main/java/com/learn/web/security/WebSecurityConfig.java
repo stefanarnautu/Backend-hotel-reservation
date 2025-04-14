@@ -27,6 +27,11 @@ public class WebSecurityConfig {
             .csrf(csrf -> csrf.disable()) 
             .authorizeHttpRequests(authz -> authz
                                         .requestMatchers("/login").permitAll()
+                                        .requestMatchers(
+                                            "/v3/api-docs/**",
+                                            "/swagger-ui/**",
+                                            "/swagger-ui.html"
+                                        ).permitAll()
                                         .requestMatchers("/auth/**").authenticated()
                                         .anyRequest().denyAll()
                                   )

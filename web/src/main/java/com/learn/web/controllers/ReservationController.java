@@ -12,8 +12,12 @@ import com.learn.dto.requestDTO.ReservationRequestDTO;
 import com.learn.dto.responseDTO.ReservationSavedDTO;
 import com.learn.service.ReservationService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
-@RequestMapping("/auth/reservation")
+@RequestMapping("/auth/reservations")
+@SecurityRequirement(name = "bearerAuth")
 public class ReservationController {
     private final ReservationService reservationService;
 
@@ -22,6 +26,7 @@ public class ReservationController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a new reservation", description = "Create a new reservation by providing the reservation details.")
     public ResponseEntity<ReservationSavedDTO> addReservation(@RequestBody ReservationRequestDTO reservationRequest){
         ReservationSavedDTO reservationResponse = reservationService.createReservation(reservationRequest);
         return new ResponseEntity<>(reservationResponse,HttpStatus.CREATED);
