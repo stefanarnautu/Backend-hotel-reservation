@@ -34,7 +34,7 @@ jobs:
           curl -o api-docs.yml http://localhost:8080/v3/api-docs  # Fetch the OpenAPI spec
 
       - name: Upload OpenAPI Spec as Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: openapi-spec
           path: api-docs.yml  # Upload the generated OpenAPI spec
