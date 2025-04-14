@@ -30,7 +30,7 @@ jobs:
           nohup ./mvnw spring-boot:run -pl web > spring.log 2>&1 &
 
       - name: Wait for the app to start
-        run: sleep 30
+        run: sleep 40
 
       - name: Print Spring Boot logs
         run: cat spring.log || echo "Log file not found"
@@ -40,11 +40,9 @@ jobs:
           curl -v http://localhost:8080/v3/api-docs
           curl -o api-docs.yml http://localhost:8080/v3/api-docs
 
-      - name: Upload OpenAPI Spec
-        uses: actions/upload-artifact@v4
+      - name: Deploy OpenAPI spec to Bump.sh
+        uses: bump-sh/github-action@v1
         with:
-          name: openapi-spec
-          path: api-docs.yml
-      - name: Upload OpenAPI Spec to bump.sh
-        run: |
-          curl -X POST -H "Authorization: Bearer NTXWzhTCYFo4d81Kyu1DkRCpPxpxjRkd" -F "file=@api-docs.yml" https://api.bump.sh/v1/docs/14197ea4-0b5a-4b58-9979-2b4de5e9ff06/upload
+          doc: hotel-reservation
+          token: NTXWzhTCYFo4d81Kyu1DkRCpPxpxjRkd
+          file: api-docs.yml
