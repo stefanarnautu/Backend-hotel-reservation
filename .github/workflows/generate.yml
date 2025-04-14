@@ -16,32 +16,31 @@ jobs:
       - name: Set up Java 17
         uses: actions/setup-java@v2
         with:
-          distribution: 'zulu'
           java-version: '17'
+          distribution: 'zulu'
 
-      - name: Set Executable Permission for mvnw
+      - name: Give execute permission to mvnw
         run: chmod +x ./mvnw
 
-      - name: Build the project
-        run: ./mvnw clean install
+      - name: Build only the web module
+        run: ./mvnw clean install -pl web -am
 
-      - name: Run Spring Boot App in Background
-        working-directory: ./web
+      - name: Run Spring Boot app in background
         run: |
-          nohup ./mvnw spring-boot:run > ../../spring.log 2>&1 &
+          nohup ./mvnw spring-boot:run -pl web > spring.log 2>&1 &
 
-      - name: Wait for Spring Boot to Start
-        run: sleep 40
+      - name: Wait for the app to start
+        run: sleep 20
 
-      - name: Print Spring Boot Logs
-        run: cat spring.log
+      - name: Print Spring Boot logs
+        run: cat spring.log || echo "Log file not found"
 
-      - name: Try curl for OpenAPI Spec
+      - name: Download OpenAPI spec
         run: |
           curl -v http://localhost:8080/v3/api-docs
           curl -o api-docs.yml http://localhost:8080/v3/api-docs
 
-      - name: Upload OpenAPI Spec as Artifact
+      - name: Upload OpenAPI Spec
         uses: actions/upload-artifact@v4
         with:
           name: openapi-spec
