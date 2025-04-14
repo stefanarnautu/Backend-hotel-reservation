@@ -1,0 +1,36 @@
+name: Generate OpenAPI Spec
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  generate-spec:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Spring Boot Application
+        run: |
+          # Start the Spring Boot application
+          ./mvnw spring-boot:run &  # If you use Maven; replace with ./gradlew if using Gradle
+          sleep 30  # Wait for the app to start
+
+      - name: Generate OpenAPI Spec
+        run: |
+          # Generate the OpenAPI spec and save it in docs/openapi
+          curl -o docs/openapi/openapi-spec.json http://localhost:8080/v3/api-docs
+
+      - name: Commit and push OpenAPI spec
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add docs/openapi/openapi-spec.json
+          git commit -m "Add generated OpenAPI spec"
+          git push origin main  # Or master
