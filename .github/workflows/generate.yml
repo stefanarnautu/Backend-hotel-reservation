@@ -47,4 +47,4 @@ jobs:
           path: api-docs.yml
       - name: Upload OpenAPI Spec to bump.sh
         run: |
-          curl -X POST -H "Authorization: Bearer BWk96UK1iFSJgmYGpk5p9YdHgfX8eCRE" -F "file=@api-docs.yml" https://api.bump.sh/v1/docs/upload
+          curl -X POST -H "Authorization: Bearer BWk96UK1iFSJgmYGpk5p9YdHgfX8eCRE" -F "file=@api-docs.yml" https://bump.sh/arnautu/doc/hotel-reservation
