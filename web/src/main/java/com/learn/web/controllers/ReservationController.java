@@ -2,6 +2,7 @@ package com.learn.web.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,13 +39,14 @@ public class ReservationController {
         description = "Create a new reservation by providing the reservation details.",
         responses = {
             @ApiResponse(responseCode = "201", description = "Reservation successfully created",
-                content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = ReservationSavedDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            content = @Content(mediaType = "application/json",
+                schema = @Schema(implementation = ReservationSavedDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input data",
+                content = @Content(mediaType = "application/json")),
             @ApiResponse(responseCode = "401", description = "Unauthorized access")
         }
     )
-    public ResponseEntity<ReservationSavedDTO> addReservation(@Valid @RequestBody ReservationRequestDTO reservationRequest){
+    public ResponseEntity<?> addReservation(@Valid @RequestBody ReservationRequestDTO reservationRequest){
         ReservationSavedDTO reservationResponse = reservationService.createReservation(reservationRequest);
         return new ResponseEntity<>(reservationResponse,HttpStatus.CREATED);
     }
