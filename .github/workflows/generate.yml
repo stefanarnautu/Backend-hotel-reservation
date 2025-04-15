@@ -29,14 +29,11 @@ jobs:
         run: |
           nohup ./mvnw spring-boot:run -pl web > spring.log 2>&1 &
 
-      - name: Wait for the app to be ready
+      - name: Wait for port 8080
         run: |
           for i in {1..20}; do
-            echo "Attempt $i:"
-            RESPONSE=$(curl -s http://localhost:8080/actuator/health)
-            echo "$RESPONSE"
-            echo "$RESPONSE" | grep '"status":"UP"' && break
-            echo "Waiting for app..."
+            echo "Waiting for port 8080..."
+            nc -z localhost 8080 && echo "Port is open!" && break
             sleep 5
           done
 
