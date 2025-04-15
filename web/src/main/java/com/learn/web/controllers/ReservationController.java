@@ -14,11 +14,17 @@ import com.learn.dto.responseDTO.ReservationSavedDTO;
 import com.learn.service.ReservationService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth/reservations")
 @SecurityRequirement(name = "bearerAuth")
+@Tag(name = "Reservations", description = "Endpoints for managing hotel reservations")
 public class ReservationController {
     private final ReservationService reservationService;
 
@@ -27,15 +33,25 @@ public class ReservationController {
     }
 
     @PostMapping
-    @Operation(summary = "Create a nsew reservation", description = "Create a new reservation by providing the reservation details.")
-    public ResponseEntity<ReservationSavedDTO> addReservation(@RequestBody ReservationRequestDTO reservationRequest){
+    @Operation(
+        summary = "Create a new reservation",
+        description = "Create a new reservation by providing the reservation details.",
+        responses = {
+            @ApiResponse(responseCode = "201", description = "Reservation successfully created",
+                content = @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = ReservationSavedDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized access")
+        }
+    )
+    public ResponseEntity<ReservationSavedDTO> addReservation(@Valid @RequestBody ReservationRequestDTO reservationRequest){
         ReservationSavedDTO reservationResponse = reservationService.createReservation(reservationRequest);
         return new ResponseEntity<>(reservationResponse,HttpStatus.CREATED);
     }
 
     @DeleteMapping
     @Operation(summary = "Delete reservation", description = "Delete reservation")
-    public ResponseEntity<ReservationSavedDTO> deleteReservation(){
+    public ResponseEntity<Void> deleteReservation(){
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
