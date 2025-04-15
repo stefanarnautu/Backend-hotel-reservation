@@ -45,5 +45,5 @@ jobs:
         uses: bump-sh/github-action@v1
         with:
           doc: hotel-reservation
-          token: ${ secrets.BUMP_TOKEN }
+          token: ${{ secrets.BUMP_TOKEN }}
           file: api-docs.yml
