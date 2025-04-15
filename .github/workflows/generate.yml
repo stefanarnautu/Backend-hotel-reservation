@@ -29,20 +29,21 @@ jobs:
         run: |
           nohup ./mvnw spring-boot:run -pl web > spring.log 2>&1 &
 
-      - name: Wait for the app to start
-        run: sleep 40
-
-      - name: Print Spring Boot logs
-        run: cat spring.log || echo "Log file not found"
+      - name: Wait for the app to be ready
+        run: |
+          for i in {1..20}; do
+            curl -s http://localhost:8080/actuator/health | grep '"status":"UP"' && break
+            echo "Waiting for app..."
+            sleep 5
+          done
 
       - name: Download OpenAPI spec
         run: |
-          curl -v http://localhost:8080/v3/api-docs
           curl -o api-docs.yml http://localhost:8080/v3/api-docs
 
       - name: Deploy OpenAPI spec to Bump.sh
         uses: bump-sh/github-action@v1
         with:
           doc: hotel-reservation
-          token: NTXWzhTCYFo4d81Kyu1DkRCpPxpxjRkd
+          token: ${ secrets.BUMP_TOKEN }
           file: api-docs.yml
