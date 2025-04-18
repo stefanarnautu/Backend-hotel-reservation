@@ -1,10 +1,6 @@
 package com.learn.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.learn.domain.Reservation;
@@ -12,7 +8,6 @@ import com.learn.domain.Room;
 import com.learn.domain.User;
 import com.learn.dto.requestDTO.ReservationRequestDTO;
 import com.learn.dto.responseDTO.ReservationSavedDTO;
-import com.learn.enums.PaymentType;
 import com.learn.repositories.ReservationRepo;
 import com.learn.repositories.RoomRepo;
 import com.learn.repositories.UserRepo;
